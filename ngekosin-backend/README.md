@@ -6,10 +6,12 @@ Alamat API sudah cocok dengan `ApiConfig` di aplikasi: `http://<host>:3000/api/v
 ## Struktur
 ```
 ngekosin-backend/
-├─ database/schema.sql   # 22 tabel (database: ngekosin)
+├─ database/migrations/  # 19 file migrasi (1 per tabel, ada bagian Up & Down)
+├─ database/schema.sql   # ringkasan semua tabel dalam 1 file (untuk import manual)
 ├─ database/seed.sql     # data awal = data dummy aplikasi (18 kos, 7 kota, 11 kampus, dll.)
 ├─ src/                  # kode API (routes, services, middleware)
-├─ scripts/setup-db.js   # buat database + tabel + seed
+├─ scripts/migrate.js    # perintah migrasi (up, rollback, status, fresh, seed)
+├─ scripts/setup-db.js   # satu perintah: migrasi + seed
 ├─ scripts/smoke-test.js # uji otomatis semua endpoint
 ├─ docs/API.md           # daftar endpoint
 └─ uploads/              # foto chat & bukti bayar yang diunggah
@@ -36,6 +38,25 @@ ngekosin-backend/
 > atau manual lewat HeidiSQL: *File → Run SQL file*, jalankan `schema.sql` lalu `seed.sql`).
 
 Mulai dari nol lagi: `npm run db:reset` (**menghapus** database lalu membuatnya ulang).
+
+## Migrasi database
+Struktur tabel dikelola lewat file di `database/migrations/` (`001_create_users_table.sql` dst.).
+Tiap file punya bagian `-- +migrate Up` (membuat tabel) dan `-- +migrate Down` (menghapusnya).
+Riwayat yang sudah dijalankan dicatat di tabel `migrations`.
+
+| Perintah | Fungsi |
+|---|---|
+| `npm run migrate` | jalankan migrasi yang belum dijalankan |
+| `npm run migrate:status` | lihat status tiap migrasi (Ran / Pending) |
+| `npm run migrate:rollback` | batalkan batch migrasi terakhir |
+| `npm run migrate:fresh` | **hapus** database lalu migrasi ulang dari nol |
+| `npm run seed` | isi data awal dari `database/seed.sql` |
+| `npm run db:setup` | migrasi + seed (bila masih kosong) |
+| `npm run db:reset` | **hapus** database, migrasi ulang, lalu seed |
+
+Menambah/mengubah tabel: buat file baru berikutnya, mis. `020_add_foto_to_users_table.sql`, isi bagian Up
+(`ALTER TABLE ...`) dan Down, lalu jalankan `npm run migrate`. Database lama yang dibuat dari `schema.sql`
+terdeteksi otomatis (tidak dibuat ulang).
 
 ## Menyambungkan aplikasi Flutter
 Di `lib/core/config/api_config.dart`:

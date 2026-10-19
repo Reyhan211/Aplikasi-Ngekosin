@@ -2,6 +2,10 @@
 --  NGEKOS.IN  -  Skema database (MySQL 5.7+ / MySQL 8 / MariaDB 10.3+)
 --  Cocok untuk Laragon (default: user root, password kosong, port 3306).
 --
+--  CATATAN: file ini adalah RINGKASAN seluruh skema dalam satu berkas (untuk
+--  di-import manual lewat HeidiSQL/phpMyAdmin). Sumber utamanya adalah
+--  folder database/migrations (1 file per tabel); hasilnya identik.
+--
 --  Cara pakai (pilih salah satu):
 --    1. Terminal proyek :  npm run db:setup
 --    2. HeidiSQL / phpMyAdmin : buka file ini lalu Run / Import
