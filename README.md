@@ -4,6 +4,13 @@ Aplikasi mobile untuk mencari dan menyewa kos, dibuat dengan **Flutter** dan did
 
 Proyek UTS Pemrograman Aplikasi Bergerak.
 
+## Nama Anggota
+
+- Ahnaf Reyhan Kenneth Alvaro (24051214179)
+- Achmad Aldi Saputra (24051214193)
+- Akila Safiano Drianto (24051214188)
+- Shalsa berliana firdausi (24051214190)
+
 ## Fitur
 
 - Pencarian kos berdasarkan nama, area/kota, atau kampus terdekat, dengan filter dan urutan hasil
